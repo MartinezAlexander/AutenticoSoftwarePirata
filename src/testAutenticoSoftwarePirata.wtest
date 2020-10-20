@@ -53,4 +53,11 @@ describe "Autentico Software pirata" {
 		assert.throwsExceptionWithMessage("No puedo reclutarlo", {perla_negra.reclutar_tripulante(jones)})
 	}
 	
+	test "el holandes errante es temible"{
+		assert.that(holandes_errante.es_temible())
+	}
+	
+	test "el holandes errante no acepta ningun tripulante" {
+		assert.throwsExceptionWithMessage("No puedo reclutarlo", {holandes_errante.reclutar_tripulante(jack)})
+	}
 }

@@ -1,4 +1,5 @@
 class Ciudad {
+	var property nombre = "ciudad"
 	var property souvenir
 	const habitantes = []
 	
