@@ -2,32 +2,34 @@ import piratas.*
 import misiones.*
 import barcos.*
 import ciudades.*
+import souvenires.*
 
 describe "Autentico Software pirata" {
 	
-	var jack = new Pirata()
-	var barbanegra = new Pirata()
-	var jones = new Pirata()
-	var busqueda_del_teroso = new BusquedaDelTesoro()
-	var convertirse_en_leyenda = new ConventirseEnLeyenda()
-	var perla_negra = new Barco()
-	var buenos_aires = new Ciudad()
+	const jack = new Pirata(items=["mapa","oro","collar de perlas"], dinero=3, habilidad_principal="saqueos")
+	const barbanegra = new Pirata(items=["brujula", "dos cuchillos", "un diente de oro","un loro"], dinero=4, habilidad_principal="espiar")
+	const jones = new Pirata(items=["llave de cofre","brujula"], dinero=4, habilidad_principal="escaparse")
+	const busqueda_del_teroso = new BusquedaDelTesoro()
+	const convertir_en_leyenda = new ConvertirseEnLeyenda(elemento_indispensable = "un loro")
+	const perla_negra = new Barco(tripulantes= [jack,barbanegra], mision = busqueda_del_teroso, capacidad = 3)
+	const souvenir = new Souvenir(item = "reloj de oro", valor = 2)
+	const buenos_aires = new Ciudad(souvenir = souvenir)
 	
-	test "jack es un pirata util para busqueda del tesoro" {
-		assert.that(busqueda_del_teroso.es_util(jack))
+	test "jones es un pirata util para busqueda del tesoro" {
+		assert.that(busqueda_del_teroso.es_util(jones))
 	}
 	
-	test "jack puede formar parte del perla negra" {
-		assert.that(perla_negra.puede_formar_parte(jack))
+	test "jones puede formar parte del perla negra" {
+		assert.that(perla_negra.puedo_reclutarlo(jones))
 	}
 	
-	test "el perla negra tiene un tripulante, ya que recluta a jack" {
-		perla_negra.reclutar_tripulante(jack)
-		assert.equals(1,perla_negra.cantidad_de_tripulantes())
+	test "el perla negra tiene tres tripulantes, ya que recluta a jones y ya estaba jack y barbanegra" {
+		perla_negra.reclutar_tripulante(jones)
+		assert.equals(3,perla_negra.cantidad_de_tripulantes())
 	}
 	
 	test "el perla negra cambia de mision y se queda sin tripulantes" {
-		perla_negra.cambiar_de_mision(convertirse_en_leyenda)
+		perla_negra.cambiar_de_mision(convertir_en_leyenda)
 		assert.equals(0,perla_negra.cantidad_de_tripulantes())
 	}
 	
@@ -47,6 +49,7 @@ describe "Autentico Software pirata" {
 	}
 	
 	test "el perla negra supera el limite de tripulacion y no puede agregar a jones" {
+		perla_negra.cambiar_de_mision(convertir_en_leyenda)
 		assert.throwsExceptionWithMessage("No puedo reclutarlo", {perla_negra.reclutar_tripulante(jones)})
 	}
 	
