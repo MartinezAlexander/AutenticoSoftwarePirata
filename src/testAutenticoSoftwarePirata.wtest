@@ -1,0 +1,53 @@
+import piratas.*
+import misiones.*
+import barcos.*
+import ciudades.*
+
+describe "Autentico Software pirata" {
+	
+	var jack = new Pirata()
+	var barbanegra = new Pirata()
+	var jones = new Pirata()
+	var busqueda_del_teroso = new BusquedaDelTesoro()
+	var convertirse_en_leyenda = new ConventirseEnLeyenda()
+	var perla_negra = new Barco()
+	var buenos_aires = new Ciudad()
+	
+	test "jack es un pirata util para busqueda del tesoro" {
+		assert.that(busqueda_del_teroso.es_util(jack))
+	}
+	
+	test "jack puede formar parte del perla negra" {
+		assert.that(perla_negra.puede_formar_parte(jack))
+	}
+	
+	test "el perla negra tiene un tripulante, ya que recluta a jack" {
+		perla_negra.reclutar_tripulante(jack)
+		assert.equals(1,perla_negra.cantidad_de_tripulantes())
+	}
+	
+	test "el perla negra cambia de mision y se queda sin tripulantes" {
+		perla_negra.cambiar_de_mision(convertirse_en_leyenda)
+		assert.equals(0,perla_negra.cantidad_de_tripulantes())
+	}
+	
+	test "barbanegra es el tripulante con mas pertenencias del perla negra" {
+		assert.equals(barbanegra,perla_negra.tripulante_con_mas_pertenencias())
+	}
+	
+	test "el perla negra ancla en buenos aires y jack queda perdido alli" {
+		perla_negra.anclar_en(buenos_aires)
+		assert.equals(1,perla_negra.cantidad_de_tripulantes())
+		assert.equals(1,buenos_aires.cantidad_de_habitantes())
+	}
+	
+	test "el perla negra es temible cuando incorpora a jones" {
+		perla_negra.reclutar_tripulante(jones)
+		assert.that(perla_negra.es_temible())
+	}
+	
+	test "el perla negra supera el limite de tripulacion y no puede agregar a jones" {
+		assert.throwsExceptionWithMessage("No puedo reclutarlo", {perla_negra.reclutar_tripulante(jones)})
+	}
+	
+}
