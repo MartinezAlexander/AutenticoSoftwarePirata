@@ -42,6 +42,10 @@ class Barco {
 	method algun_tripulante_tiene(un_item) = tripulantes.any({un_tripulante => un_tripulante.tiene_item(un_item)})
 	
 	method todos_tus_tripulantes_son_ricos() = tripulantes.all({un_tripulante => un_tripulante.soy_rico()})
+	
+	method requisito_saqueable_de_lugar(un_tripulante) = un_tripulante.es_experto_en("saqueos")
+	
+	method requisito_para_concretar_saqueo(un_barco) = un_barco.cantidad_de_tripulantes() > self.cantidad_de_tripulantes()*2
 }
 
 object holandes_errante inherits Barco{

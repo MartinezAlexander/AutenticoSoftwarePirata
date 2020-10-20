@@ -23,7 +23,7 @@ class Pirata {
 	
 	method agregar_item(un_item) = items.add(un_item)
 	
-	method animarse_a_saquear_en_mision(una_mision) = una_mision.requisito_saqueable_de_lugar(self)
+	method animarse_a_saquear(un_lugar) = un_lugar.requisito_saqueable_de_lugar(self)
 	
 	method soy_rico() = self.cantidad_de_dinero() > nivel_de_riqueza
 }
@@ -31,5 +31,5 @@ class Pirata {
 class EspiaDeLaCorona inherits Pirata {
 	override method es_experto_en(habilidad) = true
 
-	override method animarse_a_saquear_en_mision(un_lugar) = super(un_lugar) && self.tiene_item("permiso de la corona")
+	override method animarse_a_saquear(un_lugar) = super(un_lugar) && self.tiene_item("permiso de la corona")
 }

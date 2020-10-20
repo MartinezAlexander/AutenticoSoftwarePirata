@@ -30,27 +30,8 @@ class Saqueo inherits Mision {
 	
 	const lugar_a_saquear
 
-	override method es_util(un_tripulante) = un_tripulante.cantidad_de_dinero() < cantidad_monedas_tope && un_tripulante.animarse_a_saquear_en_mision(self)
+	override method es_util(un_tripulante) = un_tripulante.cantidad_de_dinero() < cantidad_monedas_tope && un_tripulante.animarse_a_saquear(lugar_a_saquear)
 	
-	override method puede_ser_realizada_por(un_barco) = super(un_barco) && self.requisito_para_concretar_saqueo(un_barco)
+	override method puede_ser_realizada_por(un_barco) = super(un_barco) && lugar_a_saquear.requisito_para_concretar_saqueo(un_barco)
 	
-	method requisito_saqueable_de_lugar(un_tripulante)
-	
-	method requisito_para_concretar_saqueo(un_barco)
-}
-
-class SaqueoCiudad inherits Saqueo {
-	
-	override method requisito_para_concretar_saqueo(un_barco) = un_barco.cantidad_de_tripulantes() >= lugar_a_saquear.cantidad_de_habitantes()*0.4
-	
-	override method requisito_saqueable_de_lugar(un_tripulante) = un_tripulante.tiene_item("mapa " + lugar_a_saquear.nombre())
-
-}
-
-class SaqueoBarco inherits Saqueo {
-	
-	override method requisito_para_concretar_saqueo(un_barco) = un_barco.cantidad_de_tripulantes() > lugar_a_saquear.cantidad_de_tripulantes()*2
-	
-	override method requisito_saqueable_de_lugar(un_tripulante) = un_tripulante.es_experto_en("saqueos")
-
 }

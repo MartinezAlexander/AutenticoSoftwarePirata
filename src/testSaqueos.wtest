@@ -14,8 +14,8 @@ describe "Autentico Software pirata" {
 	const new_york = new Ciudad(nombre="New York",souvenir = new Souvenir(item = "diamante", valor = 1), habitantes=[jack,barbanegra,jones])
 	const un_barco = new Barco(tripulantes= [jack], mision = busqueda_del_teroso, capacidad = 3)
 	
-	const saqueo_a_ciudad = new SaqueoCiudad(lugar_a_saquear = new_york , cantidad_monedas_tope = 8)
-	const saqueo_a_barco = new SaqueoBarco(lugar_a_saquear = un_barco, cantidad_monedas_tope = 10)
+	const saqueo_a_ciudad = new Saqueo(lugar_a_saquear = new_york , cantidad_monedas_tope = 8)
+	const saqueo_a_barco = new Saqueo(lugar_a_saquear = un_barco, cantidad_monedas_tope = 10)
 	
 	const perla_negra = new Barco(mision = saqueo_a_barco, capacidad = 3)
 	
